@@ -1,23 +1,40 @@
-gulp-resume
-============
+# gulp-resume
 
-Usage
------
+gulp-resume is a [gulp](https://github.com/gulpjs/gulp) plugin to generate a resume using [jsonresume.org](http://jsonresume.org).
+
+[![NPM](https://nodei.co/npm/gulp-resume.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/gulp-resume/)
+
+[![Circle CI](https://circleci.com/gh/mattberther/gulp-resume.svg?style=shield)](https://circleci.com/gh/mattberther/gulp-resume)
+[![devDependency Status](https://david-dm.org/mattberther/gulp-resume.svg)](https://david-dm.org/mattberther/gulp-resume#info=devDependencies)
+
+
+## Usage
 
 ```js
 var resume = require('gulp-resume');
+var rename = require('gulp-rename');
 
 gulp.task('resume', function() {
-  return gulp.src('./resume.json')
+  return gulp.src('resume.json')
     .pipe(resume({
-      format: 'html'
+      format: 'html',
+      theme: 'elegant'
     }))
-    .pipe(gulp.dest('./resume.html'));
+    .pipe(rename('resume.html'))
+    .pipe(gulp.dest('.'));
 });
+
 ```
 
-LICENSE
--------
+## Notes
+Thank you to the awesome folks behind https://jsonresume.org, a JSON-based open source standard for resumes.
+
+A couple notes on the options that can be passed:
+
+* `format` is the desired output format of the resume. At this time, only `html` is supported.
+* `theme` is the jsonresume.org theme to apply to the resume. Themes can be previewed at https://jsonresume.org/themes/.
+
+## License
 
 (MIT License)
 Copyright (c) 2016 [Matt Berther](https://matt.berther.io)
