@@ -1,6 +1,6 @@
 {
   "name": "gulp-resume",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "gulp plugin to generate resumes from jsonresume.org",
   "main": "index.js",
   "scripts": {
