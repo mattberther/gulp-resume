@@ -1,0 +1,45 @@
+{
+  "name": "gulp-resume",
+  "version": "0.1.0",
+  "description": "gulp plugin to generate resumes from jsonresume.org",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha && jshint .",
+    "publish-major": "npm version major && npm publish && git push origin master && git push --tags",
+    "publish-minor": "npm version minor && npm publish && git push origin master && git push --tags",
+    "publish-patch": "npm version patch && npm publish && git push origin master && git push --tags"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mattberther/gulp-resume.git"
+  },
+  "keywords": [
+    "gulpplugin",
+    "resume"
+  ],
+  "author": {
+    "name": "Matt Berther",
+    "email": "matt@berther.io",
+    "url": "https://matt.berther.io"
+  },
+  "engines": {
+    "node": ">= 0.10.0"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mattberther/gulp-resume/issues"
+  },
+  "homepage": "https://github.com/mattberther/gulp-resume",
+  "devDependencies": {
+    "event-stream": "^3.3.2",
+    "jshint": "^2.9.1",
+    "mocha": "^2.4.5",
+    "should": "^8.2.2",
+    "vinyl": "^1.1.1"
+  },
+  "dependencies": {
+    "gulp-util": "^3.0.7",
+    "request": "^2.69.0",
+    "through2": "^2.0.1"
+  }
+}
