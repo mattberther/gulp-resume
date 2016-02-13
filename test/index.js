@@ -1,4 +1,4 @@
-/* jshint node: true */
+/* jshint expr: true, node: true */
 /* global describe, it, beforeEach */
 'use strict';
 
