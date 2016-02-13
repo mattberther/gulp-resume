@@ -15,7 +15,9 @@
   },
   "keywords": [
     "gulpplugin",
-    "resume"
+    "resume",
+    "json",
+    "jsonresume"
   ],
   "author": {
     "name": "Matt Berther",
