@@ -8,12 +8,21 @@ var PluginError = gutil.PluginError;
 
 var PLUGIN_NAME = 'gulp-resume';
 var THEME_SERVER = 'http://themes.jsonresume.org/theme/';
+var THEME_REGISTRY = 'http://themes.jsonresume.org/themes.json';
 var SUPPORTED_FORMATS = ['html'];
-var SUPPORTED_THEMES = [
+var SUPPORTED_THEMES = [];
+var DEFAULT_THEMES = [
   'elegant', 'paper', 'kendall', 'flat',
   'modern', 'classy', 'class', 'short',
   'slick', 'kwan', 'onepage'
 ];
+
+var getThemes = function (cb) {
+  request(THEME_REGISTRY, function (err, resp, body) {
+    var themes = Object.keys(JSON.parse(body).themes) || DEFAULT_THEMES;
+    cb(themes, err);
+  });
+};
 
 module.exports = function(options) {
   if (!options) {
@@ -24,17 +33,21 @@ module.exports = function(options) {
   var theme = options.theme || 'flat';
 
   var stream = through.obj(function(file, enc, cb) {
+
+    var _self = this;
+
     if (SUPPORTED_FORMATS.indexOf(format) === -1) {
       this.emit('error', new PluginError(PLUGIN_NAME, 'invalid format specified'));
       return cb();
     }
 
-    if (SUPPORTED_THEMES.indexOf(theme) === -1) {
-      this.emit('error', new PluginError(PLUGIN_NAME, 'invalid theme specified'));
-      return cb();
-    }
-
-    var _self = this;
+    getThemes(function (themes) {
+      SUPPORTED_THEMES = themes;
+      if (SUPPORTED_THEMES.indexOf(theme) === -1) {
+        _self.emit('error', new PluginError(PLUGIN_NAME, 'invalid theme specified'));
+        return cb();
+      }
+    });
 
     if (file.isBuffer()) {
       request.post({
