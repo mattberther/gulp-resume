@@ -32,10 +32,11 @@
   },
   "homepage": "https://github.com/mattberther/gulp-resume",
   "devDependencies": {
+    "chai": "3.5.0",
+    "chai-string": "1.2.0",
     "event-stream": "^3.3.2",
-    "jshint": "^2.9.1",
+    "jshint": "^2.9.2",
     "mocha": "^2.4.5",
-    "should": "^8.2.2",
     "vinyl": "^1.1.1"
   },
   "dependencies": {
