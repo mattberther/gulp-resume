@@ -1,5 +1,4 @@
-/* jshint expr: true */
-/* global describe, it, beforeEach */
+/* eslint-disable no-unused-expressions,max-nested-callbacks */
 'use strict';
 
 var resume = require('../');
@@ -12,8 +11,9 @@ var es = require('event-stream');
 
 chai.use(require('chai-string'));
 
-describe('gulp-resume', function() {
+describe('gulp-resume', function () {
   var fakeResume;
+  this.timeout(3000);
 
   function getFakeResume(fileContent) {
     return new VinylFile({
@@ -31,15 +31,15 @@ describe('gulp-resume', function() {
     });
   }
 
-  beforeEach(function() {
+  beforeEach(function () {
     fakeResume = getFakeResume(fs.readFileSync('./test/fixtures/resume.json'));
   });
 
-  describe('resume()', function() {
-    it('should create an html formatted resume', function(done) {
+  describe('resume()', function () {
+    it('should create an html formatted resume', function (done) {
       var stream = resume({theme: 'elegant'});
 
-      stream.once('data', function(file) {
+      stream.once('data', function (file) {
         expect(file.isBuffer()).to.be.true;
         expect(file.contents).to.exist;
         expect(file.contents.toString()).to.startWith('<!DOCTYPE html><html lang="en">');
@@ -50,12 +50,16 @@ describe('gulp-resume', function() {
       stream.end();
     });
 
-    it('should create an html formatted resume (stream)', function(done) {
+    it('should create an html formatted resume (stream)', function (done) {
       var stream = resume({theme: 'elegant'});
 
-      stream.once('data', function(file) {
+      stream.once('data', function (file) {
         expect(file.isStream()).to.be.true;
-        file.contents.pipe(es.wait(function(err, data) {
+        file.contents.pipe(es.wait(function (err, data) {
+          if (err) {
+            done(err);
+          }
+
           expect(data.toString('utf8')).to.startWith('<!DOCTYPE html><html lang="en">');
           done();
         }));
@@ -65,9 +69,9 @@ describe('gulp-resume', function() {
       stream.end();
     });
 
-    it('should validate the theme requested', function(done) {
+    it('should validate the theme requested', function (done) {
       var stream = resume({theme: 'invalid'});
-      stream.once('error', function(err) {
+      stream.once('error', function (err) {
         expect(err).to.have.property('message', 'invalid theme specified');
         done();
       });
@@ -76,9 +80,9 @@ describe('gulp-resume', function() {
       stream.end();
     });
 
-    it('should error if the format is not html or pdf', function(done) {
+    it('should error if the format is not html or pdf', function (done) {
       var stream = resume({format: 'invalid'});
-      stream.once('error', function(err) {
+      stream.once('error', function (err) {
         expect(err).to.have.property('message', 'invalid format specified');
         done();
       });

@@ -24,16 +24,13 @@ var getThemes = function (cb) {
   });
 };
 
-module.exports = function(options) {
-  if (!options) {
-    options = {};
-  }
+module.exports = function (options) {
+  options = options || {};
 
   var format = options.format || 'html';
   var theme = options.theme || 'flat';
 
-  var stream = through.obj(function(file, enc, cb) {
-
+  var stream = through.obj(function (file, enc, cb) {
     var _self = this;
 
     if (SUPPORTED_FORMATS.indexOf(format) === -1) {
@@ -53,10 +50,10 @@ module.exports = function(options) {
       request.post({
         url: THEME_SERVER + theme,
         body: {
-          resume: JSON.parse(file.contents.toString()),
+          resume: JSON.parse(file.contents.toString())
         },
         json: true
-      }, function(err, resp, body) {
+      }, function (err, resp, body) {
         if (err) {
           _self.emit('error', err);
           return cb();

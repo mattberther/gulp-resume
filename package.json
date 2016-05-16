@@ -4,7 +4,7 @@
   "description": "gulp plugin to generate resumes from jsonresume.org",
   "main": "index.js",
   "scripts": {
-    "test": "mocha && jshint .",
+    "test": "mocha && eslint .",
     "preversion": "npm test",
     "postversion": "git push && git push --tags && npm publish"
   },
@@ -34,8 +34,9 @@
   "devDependencies": {
     "chai": "3.5.0",
     "chai-string": "1.2.0",
+    "eslint": "2.10.1",
+    "eslint-config-xo-space": "0.13.0",
     "event-stream": "^3.3.2",
-    "jshint": "^2.9.2",
     "mocha": "^2.4.5",
     "vinyl": "^1.1.1"
   },
@@ -43,5 +44,12 @@
     "gulp-util": "^3.0.7",
     "request": "^2.69.0",
     "through2": "^2.0.1"
+  },
+  "eslintConfig": {
+    "extends": "xo-space",
+    "env": {
+      "node": true,
+      "mocha": true
+    }
   }
 }
