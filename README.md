@@ -35,7 +35,7 @@ MIT
 
 [npm-image]: https://badge.fury.io/js/gulp-resume.svg
 [npm-url]: https://npmjs.org/package/gulp-resume
-[travis-image]: https://travis-ci.org/winstonjs/gulp-resume.svg?branch=master
-[travis-url]: https://travis-ci.org/winstonjs/gulp-resume
-[daviddm-image]: https://david-dm.org/winstonjs/gulp-resume.svg?theme=shields.io
-[daviddm-url]: https://david-dm.org/winstonjs/gulp-resume
+[travis-image]: https://travis-ci.org/mattberther/gulp-resume.svg?branch=master
+[travis-url]: https://travis-ci.org/mattberther/gulp-resume
+[daviddm-image]: https://david-dm.org/mattberther/gulp-resume.svg?theme=shields.io
+[daviddm-url]: https://david-dm.org/mattberther/gulp-resume
