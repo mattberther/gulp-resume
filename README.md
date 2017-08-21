@@ -29,6 +29,7 @@ A couple notes on the options that can be passed:
 
 * `format` is the desired output format of the resume. At this time, only `html` is supported.
 * `theme` is the jsonresume.org theme to apply to the resume. Themes can be previewed at https://jsonresume.org/themes/.
+* `proxy` is an optional proxy server url such as `http://1.2.3.4:8080`
 
 ## License
 MIT
