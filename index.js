@@ -17,8 +17,9 @@ var DEFAULT_THEMES = [
   'slick', 'kwan', 'onepage'
 ];
 
-var getThemes = function (cb) {
-  request(THEME_REGISTRY, function (err, resp, body) {
+var getThemes = function (options, cb) {
+  options.url = THEME_REGISTRY;
+  request(options, function (err, resp, body) {
     var themes = Object.keys(JSON.parse(body).themes) || DEFAULT_THEMES;
     cb(themes, err);
   });
@@ -29,6 +30,7 @@ module.exports = function (options) {
 
   var format = options.format || 'html';
   var theme = options.theme || 'flat';
+  var proxy = options.proxy || null;
 
   var stream = through.obj(function (file, enc, cb) {
     var _self = this;
@@ -38,7 +40,13 @@ module.exports = function (options) {
       return cb();
     }
 
-    getThemes(function (themes) {
+    var requestOptions = {};
+
+    if (proxy) {
+      requestOptions.proxy = proxy;
+    }
+
+    getThemes(requestOptions, function (themes) {
       SUPPORTED_THEMES = themes;
       if (SUPPORTED_THEMES.indexOf(theme) === -1) {
         _self.emit('error', new PluginError(PLUGIN_NAME, 'invalid theme specified'));
@@ -49,6 +57,7 @@ module.exports = function (options) {
     if (file.isBuffer()) {
       request.post({
         url: THEME_SERVER + theme,
+        proxy: proxy,
         body: {
           resume: JSON.parse(file.contents.toString())
         },
