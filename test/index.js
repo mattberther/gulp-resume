@@ -9,6 +9,8 @@ const expect = chai.expect;
 const VinylFile = require('vinyl');
 const es = require('event-stream');
 
+const proxy = null; // Replace with string if you want to test with a proxy
+
 chai.use(require('chai-string'));
 
 describe('gulp-resume', function () {
@@ -37,7 +39,7 @@ describe('gulp-resume', function () {
 
   describe('resume()', function () {
     it('should create an html formatted resume', function (done) {
-      const stream = resume({theme: 'elegant'});
+      const stream = resume({theme: 'elegant', proxy: proxy});
 
       stream.once('data', function (file) {
         expect(file.isBuffer()).to.be.true;
@@ -51,7 +53,7 @@ describe('gulp-resume', function () {
     });
 
     it('should create an html formatted resume (stream)', function (done) {
-      const stream = resume({theme: 'elegant'});
+      const stream = resume({theme: 'elegant', proxy: proxy});
 
       stream.once('data', function (file) {
         expect(file.isStream()).to.be.true;
@@ -70,7 +72,7 @@ describe('gulp-resume', function () {
     });
 
     it('should validate the theme requested', function (done) {
-      const stream = resume({theme: 'invalid'});
+      const stream = resume({theme: 'invalid', proxy: proxy});
       stream.once('error', function (err) {
         expect(err).to.have.property('message', 'invalid theme specified');
         done();
@@ -81,7 +83,7 @@ describe('gulp-resume', function () {
     });
 
     it('should error if the format is not html or pdf', function (done) {
-      const stream = resume({format: 'invalid'});
+      const stream = resume({format: 'invalid', proxy: proxy});
       stream.once('error', function (err) {
         expect(err).to.have.property('message', 'invalid format specified');
         done();
