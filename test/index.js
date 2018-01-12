@@ -1,18 +1,18 @@
 /* eslint-disable no-unused-expressions,max-nested-callbacks */
 'use strict';
 
-var resume = require('../');
+const resume = require('../');
 
-var fs = require('fs');
-var chai = require('chai');
-var expect = chai.expect;
-var VinylFile = require('vinyl');
-var es = require('event-stream');
+const fs = require('fs');
+const chai = require('chai');
+const expect = chai.expect;
+const VinylFile = require('vinyl');
+const es = require('event-stream');
 
 chai.use(require('chai-string'));
 
 describe('gulp-resume', function () {
-  var fakeResume;
+  let fakeResume;
   this.timeout(3000);
 
   function getFakeResume(fileContent) {
@@ -37,7 +37,7 @@ describe('gulp-resume', function () {
 
   describe('resume()', function () {
     it('should create an html formatted resume', function (done) {
-      var stream = resume({theme: 'elegant'});
+      const stream = resume({theme: 'elegant'});
 
       stream.once('data', function (file) {
         expect(file.isBuffer()).to.be.true;
@@ -51,7 +51,7 @@ describe('gulp-resume', function () {
     });
 
     it('should create an html formatted resume (stream)', function (done) {
-      var stream = resume({theme: 'elegant'});
+      const stream = resume({theme: 'elegant'});
 
       stream.once('data', function (file) {
         expect(file.isStream()).to.be.true;
@@ -70,7 +70,7 @@ describe('gulp-resume', function () {
     });
 
     it('should validate the theme requested', function (done) {
-      var stream = resume({theme: 'invalid'});
+      const stream = resume({theme: 'invalid'});
       stream.once('error', function (err) {
         expect(err).to.have.property('message', 'invalid theme specified');
         done();
@@ -81,7 +81,7 @@ describe('gulp-resume', function () {
     });
 
     it('should error if the format is not html or pdf', function (done) {
-      var stream = resume({format: 'invalid'});
+      const stream = resume({format: 'invalid'});
       stream.once('error', function (err) {
         expect(err).to.have.property('message', 'invalid format specified');
         done();

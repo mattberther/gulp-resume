@@ -1,25 +1,25 @@
 'use strict';
 
-var through = require('through2');
-var request = require('request');
+const through = require('through2');
+const request = require('request');
 
-var PluginError = require('plugin-error');
+const PluginError = require('plugin-error');
 
-var PLUGIN_NAME = 'gulp-resume';
-var THEME_SERVER = 'http://themes.jsonresume.org/theme/';
-var THEME_REGISTRY = 'http://themes.jsonresume.org/themes.json';
-var SUPPORTED_FORMATS = ['html'];
-var SUPPORTED_THEMES = [];
-var DEFAULT_THEMES = [
+const PLUGIN_NAME = 'gulp-resume';
+const THEME_SERVER = 'http://themes.jsonresume.org/theme/';
+const THEME_REGISTRY = 'http://themes.jsonresume.org/themes.json';
+const SUPPORTED_FORMATS = ['html'];
+let SUPPORTED_THEMES = [];
+const DEFAULT_THEMES = [
   'elegant', 'paper', 'kendall', 'flat',
   'modern', 'classy', 'class', 'short',
   'slick', 'kwan', 'onepage'
 ];
 
-var getThemes = function (options, cb) {
+const getThemes = function (options, cb) {
   options.url = THEME_REGISTRY;
   request(options, function (err, resp, body) {
-    var themes = Object.keys(JSON.parse(body).themes) || DEFAULT_THEMES;
+    const themes = Object.keys(JSON.parse(body).themes) || DEFAULT_THEMES;
     cb(themes, err);
   });
 };
@@ -27,19 +27,19 @@ var getThemes = function (options, cb) {
 module.exports = function (options) {
   options = options || {};
 
-  var format = options.format || 'html';
-  var theme = options.theme || 'flat';
-  var proxy = options.proxy || null;
+  const format = options.format || 'html';
+  const theme = options.theme || 'flat';
+  const proxy = options.proxy || null;
 
-  var stream = through.obj(function (file, enc, cb) {
-    var _self = this;
+  const stream = through.obj(function (file, enc, cb) {
+    const _self = this;
 
     if (SUPPORTED_FORMATS.indexOf(format) === -1) {
       this.emit('error', new PluginError(PLUGIN_NAME, 'invalid format specified'));
       return cb();
     }
 
-    var requestOptions = {};
+    const requestOptions = {};
 
     if (proxy) {
       requestOptions.proxy = proxy;
