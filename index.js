@@ -1,10 +1,9 @@
 'use strict';
 
 var through = require('through2');
-var gutil = require('gulp-util');
 var request = require('request');
 
-var PluginError = gutil.PluginError;
+var PluginError = require('plugin-error');
 
 var PLUGIN_NAME = 'gulp-resume';
 var THEME_SERVER = 'http://themes.jsonresume.org/theme/';
