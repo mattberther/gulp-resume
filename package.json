@@ -35,7 +35,7 @@
     "chai": "3.5.0",
     "chai-string": "1.2.0",
     "eslint": "^5.16.0",
-    "eslint-config-xo-space": "0.13.0",
+    "eslint-config-xo": "^0.26.0",
     "event-stream": "^3.3.2",
     "mocha": "^6.1.4",
     "vinyl": "^1.1.1"
