@@ -24,7 +24,7 @@
     "url": "https://matt.berther.io"
   },
   "engines": {
-    "node": ">= 0.10.0"
+    "node": ">= 8"
   },
   "license": "MIT",
   "bugs": {
@@ -34,15 +34,15 @@
   "devDependencies": {
     "chai": "3.5.0",
     "chai-string": "1.2.0",
-    "eslint": "2.10.1",
+    "eslint": "^5.16.0",
     "eslint-config-xo-space": "0.13.0",
     "event-stream": "^3.3.2",
-    "mocha": "^2.4.5",
+    "mocha": "^6.1.4",
     "vinyl": "^1.1.1"
   },
   "dependencies": {
     "plugin-error": "0.1.2",
-    "request": "^2.69.0",
+    "request": "^2.88.0",
     "through2": "^2.0.1"
   },
   "eslintConfig": {
