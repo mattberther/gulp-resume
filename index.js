@@ -58,10 +58,21 @@ module.exports = function (options) {
         if (file.isStream()) {
             file.contents = file.contents.pipe(request.post({
                 url: THEME_SERVER + theme
+            }, function (err, resp) {
+                if (err) {
+                    _self.emit('error', err);
+                    return cb();
+                }
+
+                if (resp.body.match(/^Theme not supported/g)) {
+                    _self.emit('error', new PluginError(PLUGIN_NAME, 'invalid theme specified'));
+                    return cb();
+                }
+
+                cb();
             }));
 
-            this.push(file);
-            cb();
+            _self.push(file);
         }
     });
 
