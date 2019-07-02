@@ -6,31 +6,8 @@ const request = require('request');
 const PluginError = require('plugin-error');
 
 const PLUGIN_NAME = 'gulp-resume';
-const THEME_SERVER = 'http://themes.jsonresume.org/theme/';
-const THEME_REGISTRY = 'http://themes.jsonresume.org/themes.json';
+const THEME_SERVER = 'https://themes.jsonresume.org/theme/';
 const SUPPORTED_FORMATS = ['html'];
-let SUPPORTED_THEMES = [];
-const DEFAULT_THEMES = [
-    'elegant',
-    'paper',
-    'kendall',
-    'flat',
-    'modern',
-    'classy',
-    'class',
-    'short',
-    'slick',
-    'kwan',
-    'onepage'
-];
-
-const getThemes = function (options, cb) {
-    options.url = THEME_REGISTRY;
-    request(options, function (err, resp, body) {
-        const themes = Object.keys(JSON.parse(body).themes) || DEFAULT_THEMES;
-        cb(themes, err);
-    });
-};
 
 module.exports = function (options) {
     options = options || {};
@@ -53,14 +30,6 @@ module.exports = function (options) {
             requestOptions.proxy = proxy;
         }
 
-        getThemes(requestOptions, function (themes) {
-            SUPPORTED_THEMES = themes;
-            if (SUPPORTED_THEMES.indexOf(theme) === -1) {
-                _self.emit('error', new PluginError(PLUGIN_NAME, 'invalid theme specified'));
-                return cb();
-            }
-        });
-
         if (file.isBuffer()) {
             request.post({
                 url: THEME_SERVER + theme,
@@ -72,6 +41,11 @@ module.exports = function (options) {
             }, function (err, resp, body) {
                 if (err) {
                     _self.emit('error', err);
+                    return cb();
+                }
+
+                if (resp.body.match(/^Theme not supported/g)) {
+                    _self.emit('error', new PluginError(PLUGIN_NAME, 'invalid theme specified'));
                     return cb();
                 }
 

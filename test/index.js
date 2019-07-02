@@ -39,12 +39,12 @@ describe('gulp-resume', function () {
 
     describe('resume()', function () {
         it('should create an html formatted resume', function (done) {
-            const stream = resume({theme: 'elegant', proxy: proxy});
+            const stream = resume({theme: 'flat', proxy: proxy});
 
             stream.once('data', function (file) {
                 expect(file.isBuffer()).to.be.true;
                 expect(file.contents).to.exist;
-                expect(file.contents.toString()).to.startWith('<!DOCTYPE html><html lang="en">');
+                expect(file.contents.toString()).to.startWith('<!doctype html>\n<html>');
                 done();
             });
 
@@ -53,7 +53,7 @@ describe('gulp-resume', function () {
         });
 
         it('should create an html formatted resume (stream)', function (done) {
-            const stream = resume({theme: 'elegant', proxy: proxy});
+            const stream = resume({theme: 'flat', proxy: proxy});
 
             stream.once('data', function (file) {
                 expect(file.isStream()).to.be.true;
@@ -62,7 +62,7 @@ describe('gulp-resume', function () {
                         done(err);
                     }
 
-                    expect(data.toString('utf8')).to.startWith('<!DOCTYPE html><html lang="en">');
+                    expect(data.toString('utf8')).to.startWith('<!doctype html>\n<html>');
                     done();
                 }));
             });
