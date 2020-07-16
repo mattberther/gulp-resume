@@ -71,7 +71,7 @@ describe('gulp-resume', function () {
             stream.end();
         });
 
-        it('should validate the theme reqeusted (stream)', function (done) {
+        it('should validate the theme requested (stream)', function (done) {
             const stream = resume({theme: 'invalid', proxy: proxy});
             stream.once('error', function (err) {
                 expect(err).to.have.property('message', 'invalid theme specified');
