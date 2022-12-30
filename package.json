@@ -37,7 +37,7 @@
     "eslint": "^5.16.0",
     "eslint-config-xo": "^0.26.0",
     "event-stream": "^3.3.5",
-    "mocha": "^6.2.3",
+    "mocha": "^10.2.0",
     "vinyl": "^1.1.1"
   },
   "dependencies": {
